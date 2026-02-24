@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Спасибо! — Лазерная эпиляция в Анапе</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    .ty-page {
+      min-height: 100vh;
+      padding: 40px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ty-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      cursor: pointer;
+      transition: color var(--transition);
+      text-decoration: none;
+    }
+
+    .ty-back:hover {
+      color: var(--gold);
+    }
+
+    .ty-card {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 0 30px rgba(212, 150, 13, 0.08), 0 0 60px rgba(212, 150, 13, 0.03);
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* Animated checkmark */
+    .ty-checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-soft));
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: checkPop 0.6s ease forwards;
+      box-shadow: 0 0 30px rgba(226, 165, 23, 0.25);
+    }
+
+    .ty-checkmark svg {
+      color: var(--bg-dark);
+      animation: checkDraw 0.4s 0.3s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes checkPop {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes checkDraw {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .ty-title {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      line-height: 1.3;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .ty-text {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Price table */
+    .ty-prices {
+      background: rgba(19, 19, 25, 0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      margin-bottom: 24px;
+    }
+
+    .ty-prices__title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--gold);
+      font-family: var(--font-heading);
+    }
+
+    .ty-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--glass-border);
+      font-size: 14px;
+    }
+
+    .ty-price-row:last-child {
+      border-bottom: none;
+    }
+
+    .ty-price-row__zone {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .ty-price-row__price {
+      color: var(--gold-soft);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Special offer */
+    .ty-offer {
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 0 30px rgba(212, 150, 13, 0.1);
+      padding: 24px;
+      text-align: center;
+      border: 1px solid rgba(226, 165, 23, 0.2);
+      margin-bottom: 24px;
+    }
+
+    .ty-offer__badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ty-offer__title {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    /* Countdown timer */
+    .ty-timer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .ty-timer__block {
+      background: rgba(19, 19, 25, 0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .ty-timer__value {
+      font-size: 24px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .ty-timer__label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* Footer */
+    .ty-footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 20px;
+    }
+
+    .ty-footer a {
+      color: var(--gold-soft);
+      text-decoration: underline;
+    }
+
+    .ty-footer a:hover {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <div class="ty-page">
+    <div class="container">
+
+      <!-- Back link -->
+      <a href="index.html" class="ty-back">
+        <svg data-lucide="arrow-left" width="18" height="18"></svg>
+        На главную
+      </a>
+
+      <!-- Main card -->
+      <div class="ty-card">
+        <div class="ty-checkmark">
+          <svg data-lucide="check" width="40" height="40" stroke-width="3"></svg>
+        </div>
+
+        <h1 class="ty-title">Отлично! Ваш расчёт уже летит в Telegram</h1>
+
+        <p class="ty-text">
+          В течение 15 минут наш администратор напишет вам в Telegram
+          с точными цифрами и свободными датами для записи.
+        </p>
+
+        <!-- Price table -->
+        <div class="ty-prices">
+          <div class="ty-prices__title">Ориентировочные цены за сеанс</div>
+
+          <div class="ty-price-row">
+            <span class="ty-price-row__zone">Бикини (глубокое)</span>
+            <span class="ty-price-row__price">990 — 1 390 ₽</span>
+          </div>
+          <div class="ty-price-row">
+            <span class="ty-price-row__zone">Подмышки</span>
+            <span class="ty-price-row__price">500 — 700 ₽</span>
+          </div>
+          <div class="ty-price-row">
+            <span class="ty-price-row__zone">Ноги (полностью)</span>
+            <span class="ty-price-row__price">2 145 — 3 000 ₽</span>
+          </div>
+          <div class="ty-price-row">
+            <span class="ty-price-row__zone">Комплекс зон</span>
+            <span class="ty-price-row__price">индивидуально</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Special offer -->
+      <div class="ty-offer">
+        <div class="ty-offer__badge">Спецпредложение</div>
+        <div class="ty-offer__title">
+          Запишитесь на этой неделе — получите зону «подмышки» в подарок
+        </div>
+
+        <!-- Countdown -->
+        <div class="ty-timer" id="countdown">
+          <div class="ty-timer__block">
+            <span class="ty-timer__value" id="timerDays">0</span>
+            <span class="ty-timer__label">дней</span>
+          </div>
+          <div class="ty-timer__block">
+            <span class="ty-timer__value" id="timerHours">00</span>
+            <span class="ty-timer__label">часов</span>
+          </div>
+          <div class="ty-timer__block">
+            <span class="ty-timer__value" id="timerMinutes">00</span>
+            <span class="ty-timer__label">минут</span>
+          </div>
+          <div class="ty-timer__block">
+            <span class="ty-timer__value" id="timerSeconds">00</span>
+            <span class="ty-timer__label">секунд</span>
+          </div>
+        </div>
+
+        <a href="#" class="btn btn-primary btn-full">
+          Выбрать удобное время
+          <svg data-lucide="arrow-right" width="20" height="20"></svg>
+        </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="ty-footer">
+        <p>&copy; 2026 ЛАЗЕР ТАЙМ. Москвицова О.Н., самозанятая (НПД)</p>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Init Lucide
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+
+    // Countdown timer — until Sunday 23:59
+    function getNextSundayEnd() {
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0 = Sunday
+      let daysUntilSunday = (7 - dayOfWeek) % 7;
+      if (daysUntilSunday === 0) {
+        // It's Sunday — timer till end of today
+        daysUntilSunday = 0;
+      }
+      const target = new Date(now);
+      target.setDate(now.getDate() + daysUntilSunday);
+      target.setHours(23, 59, 59, 999);
+      return target;
+    }
+
+    function updateTimer() {
+      const target = getNextSundayEnd();
+      const now = new Date();
+      let diff = target - now;
+
+      if (diff <= 0) {
+        diff = 0;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      document.getElementById('timerDays').textContent = days;
+      document.getElementById('timerHours').textContent = String(hours).padStart(2, '0');
+      document.getElementById('timerMinutes').textContent = String(minutes).padStart(2, '0');
+      document.getElementById('timerSeconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+
+</body>
+</html>
