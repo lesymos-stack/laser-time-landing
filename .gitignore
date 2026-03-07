@@ -1,0 +1,12 @@
+# Секретные данные
+.env
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Редакторы
+.vscode/
+*.swp
+*.swo
