@@ -1,5 +1,8 @@
 /* === Form Logic: Phone mask, validation, submit === */
 
+// URL Google Apps Script (вставьте после настройки)
+const GOOGLE_SCRIPT_URL = '';
+
 document.addEventListener('DOMContentLoaded', () => {
   const phoneInput = document.getElementById('phoneInput');
   const submitBtn = document.getElementById('submitBtn');
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     networkError.classList.remove('visible');
 
     const payload = {
+      type: 'quiz',
       phone: phone,
       answers: answers,
       timestamp: new Date().toISOString(),
@@ -133,13 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const response = await fetch('https://httpbin.org/post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) throw new Error('Network error');
+      // Отправка в Google Sheets + Telegram
+      if (GOOGLE_SCRIPT_URL) {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
 
       trackEvent('lead_form_submitted', {
         phone_masked: phone.slice(0, 7) + '***',
@@ -152,15 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       console.error('Submit error:', err);
 
-      // Show error
-      networkError.classList.add('visible');
-      submitBtn.classList.remove('btn-loading');
-      submitBtn.innerHTML = `
-        <svg class="form-submit-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-        </svg>
-        Получить расчёт в Telegram`;
-      submitBtn.disabled = false;
+      // Даже при ошибке сети — редиректим, чтобы не потерять клиента
+      window.location.href = 'thank-you.html';
     }
   });
 });

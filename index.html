@@ -718,7 +718,7 @@
       const contactSuccess = document.getElementById('contactSuccess');
 
       if (contactSubmit) {
-        contactSubmit.addEventListener('click', () => {
+        contactSubmit.addEventListener('click', async () => {
           const name = document.getElementById('contactName').value.trim();
           const email = document.getElementById('contactEmail').value.trim();
           const message = document.getElementById('contactMessage').value.trim();
@@ -729,8 +729,22 @@
           contactSubmit.textContent = 'Отправляем...';
           contactSubmit.disabled = true;
 
-          // Simulate sending (no real endpoint)
-          setTimeout(() => {
+          // Отправка в Google Sheets + Telegram
+          try {
+            if (typeof GOOGLE_SCRIPT_URL !== 'undefined' && GOOGLE_SCRIPT_URL) {
+              await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: 'contact', name, email, message })
+              });
+            }
+          } catch (err) {
+            console.error('Contact form error:', err);
+          }
+
+          // Показываем успех
+          {
             // Show success overlay
             contactSuccess.classList.add('visible');
 
@@ -763,7 +777,7 @@
               document.getElementById('contactMessage').value = '';
               if (typeof lucide !== 'undefined') lucide.createIcons();
             }, 4000);
-          }, 1200);
+          }
         });
       }
     });
