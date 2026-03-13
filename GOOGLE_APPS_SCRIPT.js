@@ -157,12 +157,10 @@ function sendTelegram(text) {
   var url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
   UrlFetchApp.fetch(url, {
     method: 'post',
-    contentType: 'application/json',
-    payload: JSON.stringify({
+    payload: {
       chat_id: TELEGRAM_CHAT_ID,
-      text: text,
-      parse_mode: 'HTML'
-    })
+      text: text
+    }
   });
 }
 
