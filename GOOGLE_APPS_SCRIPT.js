@@ -139,7 +139,17 @@ function sendTelegramQuiz(data) {
     + 'Волосы: ' + (answers['3'] || '---') + '\n'
     + 'Когда: ' + (whenMap[answers['4']] || '---');
 
-  sendTelegram(text);
+  // Извлекаем цифры телефона для ссылки
+  var phoneDigits = (data.phone || '').replace(/\D/g, '');
+  var buttons = [];
+  if (phoneDigits) {
+    buttons.push([
+      { text: 'Написать в Telegram', url: 'https://t.me/+' + phoneDigits },
+      { text: 'Позвонить', url: 'tel:+' + phoneDigits }
+    ]);
+  }
+
+  sendTelegram(text, buttons);
 }
 
 function sendTelegramContact(data) {
@@ -153,14 +163,18 @@ function sendTelegramContact(data) {
   sendTelegram(text);
 }
 
-function sendTelegram(text) {
+function sendTelegram(text, buttons) {
   var url = 'https://api.telegram.org/bot' + TELEGRAM_BOT_TOKEN + '/sendMessage';
+  var payload = {
+    chat_id: TELEGRAM_CHAT_ID,
+    text: text
+  };
+  if (buttons && buttons.length > 0) {
+    payload.reply_markup = JSON.stringify({ inline_keyboard: buttons });
+  }
   UrlFetchApp.fetch(url, {
     method: 'post',
-    payload: {
-      chat_id: TELEGRAM_CHAT_ID,
-      text: text
-    }
+    payload: payload
   });
 }
 
