@@ -1,7 +1,7 @@
 /* === Form Logic: Phone mask, validation, submit === */
 
 // URL Google Apps Script (вставьте после настройки)
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzot_DEmbn5zK8CQgEPPfYnckJ-kDs4eRhwm6JnAMGUWjK2NkMzOs98Qo-YKpVqKlydHg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzF0a9NubCR38OtBO5Qy_I-1lpXDc4jcB9CSE-g-VsnFmFyl8uBMnMnRosKFXSPdSPvCA/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
   const phoneInput = document.getElementById('phoneInput');
@@ -141,6 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (GOOGLE_SCRIPT_URL) {
         await fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(payload)
         });
       }

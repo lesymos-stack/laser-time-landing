@@ -4,12 +4,13 @@
 // =====================================================
 
 // === НАСТРОЙКИ ===
-var TELEGRAM_BOT_TOKEN = 'ВСТАВЬТЕ_ТОКЕН_БОТА';  // Получить у @BotFather
-var TELEGRAM_CHAT_ID = 'ВСТАВЬТЕ_CHAT_ID';        // Получить у @userinfobot
+var TELEGRAM_BOT_TOKEN = '8127992479:AAFo3aF-M20mBrmMt_CjcHFJS0wzLUcIPt4';
+var TELEGRAM_CHAT_ID = '2001560341';
+var SPREADSHEET_ID = '1RrdX2dE7QHxLO-5Ja7gf-dHw6HyXuiW_BQyiTlS3Xog';
 
 function doPost(e) {
   try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     var data = JSON.parse(e.postData.contents);
     var type = data.type || 'quiz';
 
