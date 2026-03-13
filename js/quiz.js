@@ -204,8 +204,11 @@ class QuizManager {
     trackEvent('quiz_step_' + qId, { answer: this.answers[qId] });
 
     // Check if there's an interstitial to show after this question
+    // Skip "Отличный выбор!" if only "other" zone is selected
     const interstitial = QUIZ_DATA.interstitials[qId];
-    if (interstitial && !this.showingInterstitial) {
+    const skipInterstitial = qId === 2 && Array.isArray(this.answers[2]) &&
+      this.answers[2].length === 1 && this.answers[2][0] === 'other';
+    if (interstitial && !this.showingInterstitial && !skipInterstitial) {
       this.showInterstitial(interstitial, qId);
       return;
     }
