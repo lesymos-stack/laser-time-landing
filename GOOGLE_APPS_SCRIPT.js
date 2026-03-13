@@ -144,8 +144,7 @@ function sendTelegramQuiz(data) {
   var buttons = [];
   if (phoneDigits) {
     buttons.push([
-      { text: 'Написать в Telegram', url: 'https://t.me/+' + phoneDigits },
-      { text: 'Позвонить', url: 'tel:+' + phoneDigits }
+      { text: 'Написать в Telegram', url: 'https://t.me/+' + phoneDigits }
     ]);
   }
 
